@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * A program that reads symptoms from a given file and counts the occurrence of the symptoms
+ */
+
 public class AnalyticsCounter {
 	private static int headacheCount = 0;
 	private static int rashCount = 0;
@@ -13,7 +17,6 @@ public class AnalyticsCounter {
 	public static void main(String args[]) throws Exception {
 		try (BufferedReader reader = new BufferedReader (new FileReader("Project02Eclipse/symptoms.txt"))) {
 			String line;
-
 			int i = 0;
 			while ((line = reader.readLine()) != null) {
 			System.out.println("symptom from file: " + line);
