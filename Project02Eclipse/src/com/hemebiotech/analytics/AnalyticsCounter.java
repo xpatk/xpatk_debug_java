@@ -15,17 +15,20 @@ import java.util.Map;
 public class AnalyticsCounter {
 
 	public static void main(String[] args) {
+		try {
+			ISymptomReader symptomReader = new ReadSymptomDataFromFile("Project02Eclipse/symptoms.txt");
+			List<String> symptoms = symptomReader.GetSymptoms();
 
-		ISymptomReader symptomReader = new ReadSymptomDataFromFile("Project02Eclipse/symptoms.txt");
-		List<String> symptoms = symptomReader.GetSymptoms();
+			Map<String, Integer> symptomCounts = new HashMap<>();
+			for (String symptom : symptoms) {
+				symptomCounts.put(symptom, symptomCounts.getOrDefault(symptom, 0) + 1);
+			}
 
-		Map<String, Integer> symptomCounts = new HashMap<>();
-		for (String symptom : symptoms) {
-			symptomCounts.put(symptom, symptomCounts.getOrDefault(symptom, 0) + 1);
+			ISymptomWriter symptomWriter = new WriteSymptomDataToFile("result.out");
+			symptomWriter.writeSymptoms(symptomCounts);
+		} catch (Exception e) {
+			System.err.println("An error occurred while processing files: " + e.getMessage());
+			e.printStackTrace();
 		}
-
-		ISymptomWriter symptomWriter = new WriteSymptomDataToFile("result.out");
-		symptomWriter.writeSymptoms(symptomCounts);
-
 	}
 }
