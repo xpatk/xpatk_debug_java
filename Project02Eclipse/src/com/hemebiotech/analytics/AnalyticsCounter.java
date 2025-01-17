@@ -1,17 +1,9 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-/**
- * The main class that reads symptoms from a given file and counts the occurrence of the symptoms
- */
 
 public class AnalyticsCounter {
 
@@ -74,22 +66,4 @@ public class AnalyticsCounter {
 	public void writeSymptoms(Map<String, Integer> symptoms) {
 		writer.writeSymptoms(symptoms);
 	}
-
-	public static void main(String[] args) {
-		try {
-			ISymptomReader symptomReader = new ReadSymptomDataFromFile("Project02Eclipse/symptoms.txt");
-			ISymptomWriter symptomWriter = new WriteSymptomDataToFile("result.out");
-
-			AnalyticsCounter counter = new AnalyticsCounter(symptomReader, symptomWriter);
-
-			List<String> symptoms = counter.getSymptoms();
-			Map<String, Integer> symptomCounts = counter.countSymptoms(symptoms);
-			Map<String, Integer> sortedSymptoms = counter.sortSymptoms(symptomCounts);
-			counter.writeSymptoms(sortedSymptoms);
-
-		} catch (Exception e) {
-			System.err.println("An error occurred while processing files: " + e.getMessage());
-			e.printStackTrace();
-		}
 	}
-}
